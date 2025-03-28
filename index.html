@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Users - jQuery</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      text-align: center;
+      width: 400px;
+      margin: 20px 0;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .user-card {
+      background: white;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Data Users</h1>
+    <button id="btnTambah">Tambah 2 Data</button>
+    <button id="btnHapus">Hapus Data Terakhir</button>
+    <div id="userList"></div>
+  </div>
+
+  <script>
+    const users = [
+      { nama: 'Data 1', umur: 20, alamat: 'Jl. Data 1', email: 'data1@email.com' },
+      { nama: 'Data 2', umur: 21, alamat: 'Jl. Data 2', email: 'data2@email.com' },
+      { nama: 'Data 3', umur: 22, alamat: 'Jl. Data 3', email: 'data3@email.com' },
+      { nama: 'Data 4', umur: 23, alamat: 'Jl. Data 4', email: 'data4@email.com' },
+      { nama: 'Data 5', umur: 24, alamat: 'Jl. Data 5', email: 'data5@email.com' },
+    ];
+
+    function tampilkanData() {
+      $('#userList').empty();
+      const dataHTML = users.map((user, index) => {
+        return `
+          <div class="user-card">
+            <strong>${index + 1}. ${user.nama}</strong><br>
+            Umur: ${user.umur} Tahun<br>
+            Alamat: ${user.alamat}<br>
+            Email: ${user.email}
+          </div>
+        `;
+      }).join('');
+      $('#userList').html(dataHTML);
+    }
+
+    function tambahData() {
+      const nextNum = users.length + 1;
+      users.push(
+        { nama: `Data ${nextNum}`, umur: 20 + nextNum, alamat: `Jl. Data ${nextNum}`, email: `data${nextNum}@email.com` },
+        { nama: `Data ${nextNum + 1}`, umur: 20 + nextNum + 1, alamat: `Jl. Data ${nextNum + 1}`, email: `data${nextNum + 1}@email.com` }
+      );
+      tampilkanData();
+    }
+
+    function hapusData() {
+      users.pop();
+      tampilkanData();
+    }
+
+    $(document).ready(function() {
+      tampilkanData();
+      $('#btnTambah').click(tambahData);
+      $('#btnHapus').click(hapusData);
+    });
+  </script>
+
+</body>
+</html>
